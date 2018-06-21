@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Uncomment for debugging
 #set -x
@@ -7,7 +7,14 @@
 if [[ "${OPENSHIFT_USERNAME}X" == "X" ]]; then
     printf "Enter your OpenShift user ID: "
     read username
-    echo ${username} | grep "^user[0-9]*" && export OPENSHIFT_USERNAME="${username}" || echo "Invalid username"
+    echo ${username} | grep "^user[0-9]*$"
+    if [[ $? -eq 0 ]]; then
+        printf "Exporting OPENSHIFT_USERNAME\n"
+        export OPENSHIFT_USERNAME="${username}"
+        echo "VALUE: ${OPENSHIFT_USERNAME}"
+    else
+        echo "Invalid username"
+    fi
 fi
 
 if [[ "${OPENSHIFT_USERNAME}X" != "X" ]]; then
