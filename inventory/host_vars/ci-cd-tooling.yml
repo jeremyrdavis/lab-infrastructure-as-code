@@ -39,6 +39,8 @@ openshift_cluster_content:
     namespace: "{{ ci_cd_namespace }}"
     tags:
     - nexus
+    post_steps:
+    - role: "labs-ci-cd/roles/configure-nexus"
 - object: ci-cd-builds
   content:
   - name: jenkins-slave-mvn
@@ -89,8 +91,6 @@ openshift_cluster_content:
     namespace: "{{ ci_cd_namespace }}"
     tags:
     - jenkins
-    post_steps:
-    - role: "labs-ci-cd/roles/configure-nexus"
 - object: rolebindings
   content:
   - name: dev-jenkins
